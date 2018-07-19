@@ -38,7 +38,6 @@ class Myadapter: RecyclerView.Adapter<MyHolder> {
     }
 
     override fun onBindViewHolder(p0: MyHolder, p1: Int) {
-        var file = files.p1
         p0.iv!!.setImageURI(Uri.fromFile(files!![p1]))
         p0.tv1!!.text = files!![p1].toString()
         p0.tv2!!.text = files!![p1].toString()+"bytes"
