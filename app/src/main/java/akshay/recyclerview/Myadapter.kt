@@ -9,18 +9,19 @@ import java.io.File
 /**
  * Created by iphone on 7/19/2018.
  */
-class Myadapter: RecyclerView.Adapter<MyHolder> {
+class MyAdapter: RecyclerView.Adapter<MyHolder> {
     var files : Array<File>? = null
     var activity : MainActivity? = null
+    var file:File? = null
 
     constructor(activity: MainActivity){
-        var path = "/storage/sdcard0/WhatsApp/WhatsApp Images/"
-        var file = File(path)
-        if (!file.exists()){
-            path = "/storage/sdcard0/WhatsApp/WhatsApp Images/"
+        var path = "/storage/sdcard0/WhatsApp/Media/WhatsApp Images/"
+        file = File(path)
+        if (!file!!.exists()){
+            path = "/storage/emulated/0/WhatsApp/Media/WhatsApp Images/"
             file = File(path)
         }
-        var files= file.listFiles()
+        val files= file!!.listFiles()
 
         this.files =files
         this.activity = activity
@@ -28,8 +29,8 @@ class Myadapter: RecyclerView.Adapter<MyHolder> {
 
     }
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): MyHolder {
-    var inflater = LayoutInflater.from(activity)
-        var v = inflater.inflate(R.layout.indi,p0,false)
+    val inflater = LayoutInflater.from(activity)
+        val v = inflater.inflate(R.layout.indi,p0,false)
         return MyHolder(v)
     }
 
@@ -38,9 +39,15 @@ class Myadapter: RecyclerView.Adapter<MyHolder> {
     }
 
     override fun onBindViewHolder(p0: MyHolder, p1: Int) {
-        p0.iv!!.setImageURI(Uri.fromFile(files!![p1]))
-        p0.tv1!!.text = files!![p1].toString()
-        p0.tv2!!.text = files!![p1].toString()+"bytes"
+        var f = files!![p1]
+        p0.iv!!.setImageURI(Uri.fromFile(f))
+        p0.tv1!!.text = f.name.toString()
+        p0.tv2!!.text = "${f.length()/1024} kb"
+        p0.b1!!.setOnClickListener{
+            f.delete()
+            files =file!!.listFiles()
+            this@MyAdapter.notifyDataSetChanged()
+        }
 
     }
 }

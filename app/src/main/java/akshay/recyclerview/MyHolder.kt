@@ -2,6 +2,7 @@ package akshay.recyclerview
 
 import android.support.v7.widget.RecyclerView
 import android.view.View
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import kotlinx.android.synthetic.main.indi.view.*
@@ -14,11 +15,13 @@ class MyHolder:RecyclerView.ViewHolder {
     var iv :ImageView?= null
     var tv1 :TextView?= null
     var tv2 :TextView?= null
+    var b1: Button? = null
 
     constructor(v:View) : super(v) {
         iv = v.iv
         tv1 = v.tv1
         tv2 = v.tv2
+        b1 = v.b1
 
     }
 }
